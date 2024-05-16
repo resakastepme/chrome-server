@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DatasetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,4 +26,5 @@ Route::prefix('/v1')->group(function () {
 
     Route::middleware(['auth:sanctum'])->get('/test', [AuthController::class, 'test']);
 
+    Route::middleware(['auth:sanctum'])->get('/insert-dataset', [DatasetController::class, 'index']);
 });
