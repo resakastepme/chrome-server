@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('datasets', function (Blueprint $table) {
+        Schema::create('ext_logs', function (Blueprint $table) {
             $table->id();
-            $table->text('original');
-            $table->text('translated')->nullable();
-            $table->text('assistant')->nullable();
+            $table->string('user_hash');
+            $table->string('message');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('datasets');
+        Schema::dropIfExists('ext_logs');
     }
 };

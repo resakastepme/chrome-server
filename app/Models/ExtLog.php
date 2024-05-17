@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Dataset extends Model
+class ExtLog extends Model
 {
     use HasFactory;
-    protected $table = 'datasets';
+    protected $table = 'ext_logs';
     protected $fillable = [
-        'original',
-        'translated',
-        'assistant'
+        'user_hash',
+        'message'
     ];
 }

@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('datasets', function (Blueprint $table) {
+        Schema::create('ext_users', function (Blueprint $table) {
             $table->id();
-            $table->text('original');
-            $table->text('translated')->nullable();
-            $table->text('assistant')->nullable();
+            $table->string('user_hash');
+            $table->text('device');
+            $table->boolean('extStat')->default('1');
+            $table->boolean('autoScan')->default('1');
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('datasets');
+        Schema::dropIfExists('ext_users');
     }
 };

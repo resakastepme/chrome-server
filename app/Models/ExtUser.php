@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Dataset extends Model
+class ExtUser extends Model
 {
     use HasFactory;
-    protected $table = 'datasets';
+    protected $table = 'ext_users';
     protected $fillable = [
-        'original',
-        'translated',
-        'assistant'
+        'user_hash',
+        'device',
+        'extStat',
+        'autoScan'
     ];
 }

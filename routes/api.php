@@ -1,9 +1,11 @@
 <?php
 
+use App\Models\ExtUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DatasetController;
+use App\Http\Controllers\ExtUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,5 +28,9 @@ Route::prefix('/v1')->group(function () {
 
     Route::middleware(['auth:sanctum'])->get('/test', [AuthController::class, 'test']);
 
-    Route::middleware(['auth:sanctum'])->get('/insert-dataset', [DatasetController::class, 'index']);
+    Route::middleware(['auth:sanctum'])->post('/insert-dataset', [DatasetController::class, 'store']);
+
+    // EXTENSION USER ROUTE
+    Route::middleware(['auth:sanctum'])->post('/ext-user', [ExtUserController::class, 'valid']);
+    Route::middleware(['auth:sanctum'])->post('/change-user', [ExtUserController::class, 'change']);
 });
