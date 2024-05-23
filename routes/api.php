@@ -4,8 +4,10 @@ use App\Models\ExtUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\DatasetController;
 use App\Http\Controllers\ExtUserController;
+use App\Http\Controllers\LogTextController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +35,16 @@ Route::prefix('/v1')->group(function () {
     // EXTENSION USER ROUTE
     Route::middleware(['auth:sanctum'])->post('/ext-user', [ExtUserController::class, 'valid']);
     Route::middleware(['auth:sanctum'])->post('/change-user', [ExtUserController::class, 'change']);
+
+    //STORE DATA EMAIL
+    Route::middleware(['auth:sanctum'])->post('/store-data-email', [EmailController::class, 'storeIDAnalisa']);
+
+    //ANALISA TEXT
+    Route::middleware(['auth:sanctum'])->post('/store-analisa-text', [EmailController::class, 'storeAnalisaText']);
+
+    //ANALISA DOMAIN
+    Route::middleware(['auth:sanctum'])->post('/store-analisa-domain', [EmailController::class, 'storeAnalisaDomain']);
+
+    // ANALISA URL
+    Route::middleware(['auth:sanctum'])->post('/store-analisa-url', [EmailController::class, 'storeAnalisaURL']);
 });

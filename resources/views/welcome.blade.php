@@ -1025,36 +1025,42 @@
             console.log('clicked..');
             e.preventDefault();
 
-            var data = {
-                model: 'ft:gpt-3.5-turbo-0125:indonesia-computer-university:sumarize-shielded:9PW8Uwhd',
-                messages: [{
-                        "role": "system",
-                        "content": "Sumarize isi dari email yang diberikan user dalam 1 paragrap yang relevan, jelas, dan padat."
-                    },
-                    {
-                        "role": "user",
-                        "content": "Hai Resa, Kami melihat proses masuk yang tidak biasa dari perangkat atau lokasi yang biasanya tidak Anda gunakan. Apakah ini kamu? Login Baru 14 Mei 2024 pukul 02:17 Dekat Baleendah, Indonesia Peringatan Login Chrome di Windows Hai Resa, Kami melihat login yang tidak biasa dari perangkat atau lokasi yang biasanya tidak Anda gunakan. Apakah ini kamu? Login Baru 14 Mei 2024 pukul 02:17 Dekat Baleendah, Indonesia Chrome di Windows Tinjau Login Kelola Peringatan dari© Facebook. Meta Platforms, Inc., Perhatian: Dukungan Komunitas, 1 Meta Way, Menlo Park, CA 94025Pesan ini dikirim ke resa.komara.akbari@gmail.com. Untuk membantu menjaga keamanan akun Anda, mohon jangan teruskan email ini. Pelajari lebih lanjut Hai Resa, Kami melihat proses masuk yang tidak biasa dari perangkat atau lokasi yang biasanya tidak Anda gunakan. Apakah ini kamu? Login Baru 14 Mei 2024 pukul 02:17 Dekat Baleendah, Indonesia Peringatan Login Chrome di Windows Hai Resa, Kami melihat login yang tidak biasa dari perangkat atau lokasi yang biasanya tidak Anda gunakan. Apakah ini kamu? Login Baru 14 Mei 2024 pukul 02:17 Dekat Baleendah, Indonesia Chrome di Windows Tinjau Login Kelola Peringatan dari© Facebook. Meta Platforms, Inc., Perhatian: Dukungan Komunitas, 1 Meta Way, Menlo Park, CA 94025Pesan ini dikirim ke resa.komara.akbari@gmail.com. Untuk membantu menjaga keamanan akun Anda, mohon jangan teruskan email ini. Belajarlah lagi"
-                    }
-                ],
-                max_tokens: 256
-            }
-
+            var url = 'https://godlike.host/clientarea/submitticket.php';
             $.ajax({
-                url: 'https://api.openai.com/v1/chat/completions',
+                url: 'https://www.virustotal.com/api/v3/urls',
                 type: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer sk-proj-tT40EintgesTTrajBiWET3BlbkFJS5PACatqXdj2sz3NJP6E'
+                    accept: 'application/json',
+                    'x-apikey': 'c72b57abb6787b0854d428b9892c0a6a28a7076f7550a508ed8eb46d7326b4a8',
+                    'content-type': 'application/x-www-form-urlencoded'
                 },
-                data: JSON.stringify(data),
+                data: {
+                    url: url
+                },
                 success: function(response) {
-                    console.log(response);
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error:', error);
+                    console.log(response['data']['id']);
+                    console.log('then...');
+
+                    var id = response['data']['id'];
+                    var extractedId = id.match(/u-(.*?)-/)[1];
+                    console.log(extractedId);
+
+                    $.ajax({
+                        url: 'https://www.virustotal.com/api/v3/urls/' + extractedId,
+                        type: 'GET',
+                        headers: {
+                            accept: 'application/json',
+                            'x-apikey': 'c72b57abb6787b0854d428b9892c0a6a28a7076f7550a508ed8eb46d7326b4a8',
+                            'content-type': 'application/x-www-form-urlencoded'
+                        },
+                        success: function(response) {
+                            console.log(response['data']['attributes'][
+                                'last_analysis_stats'
+                            ]);
+                        }
+                    })
                 }
             });
-
 
         })
 
