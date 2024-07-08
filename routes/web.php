@@ -22,8 +22,13 @@ Route::get('/index', function () {
     return view('index');
 });
 
+Route::get('/get-iconpage', function () {
+    $filePath = public_path('img/SHIELDED-PAGE.png');
+    return response()->download($filePath, 'SHIELDED-PAGE.png');
+});
+
 // Clear All Caches
-Route::get('/clear-all-caches', function() {
+Route::get('/clear-all-caches', function () {
     Artisan::call('config:clear');
     Artisan::call('route:clear');
     Artisan::call('cache:clear');
