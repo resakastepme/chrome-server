@@ -27,6 +27,16 @@ Route::get('/get-iconpage', function () {
     return response()->download($filePath, 'SHIELDED-PAGE.png');
 });
 
+Route::get('/get-iconon', function () {
+    $filePath = public_path('img/SHIELDEDON.png');
+    return response()->download($filePath, 'SHIELDEDON.png');
+});
+
+Route::get('/get-iconoff', function () {
+    $filePath = public_path('img/SHIELDEDOFF.png');
+    return response()->download($filePath, 'SHIELDEDOFF.png');
+});
+
 // Clear All Caches
 Route::get('/clear-all-caches', function () {
     Artisan::call('config:clear');
