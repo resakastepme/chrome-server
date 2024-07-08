@@ -16,6 +16,7 @@ class LogDomain extends Model
         'harmless',
         'suspicious',
         'timeout',
-        'undetected'
+        'undetected',
+        'openphish'
     ];
 }

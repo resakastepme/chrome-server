@@ -11,7 +11,7 @@ class ExtUserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function valid(Request $r)
+    public function validating(Request $r)
     {
         $user_hash = $r['user_hash'];
         $device = $r['device'];
@@ -62,10 +62,11 @@ class ExtUserController extends Controller
         }
     }
 
-    public function change(Request $r){
+    public function change(Request $r)
+    {
         $user_hash = $r['user_hash'];
 
-        if(!$user_hash){
+        if (!$user_hash) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Data not complete!'
@@ -74,7 +75,7 @@ class ExtUserController extends Controller
 
         $q1 = ExtUser::where('user_hash', $user_hash)->first();
 
-        if($q1){
+        if ($q1) {
             ExtLog::create([
                 'user_hash' => $user_hash,
                 'message' => 'Changing userId completed!'
@@ -83,7 +84,7 @@ class ExtUserController extends Controller
                 'status' => 'ok',
                 'message' => $q1->user_hash
             ]);
-        }else{
+        } else {
             $l1 = ExtLog::create([
                 'user_hash' => $user_hash,
                 'message' => 'Changing userId failed!'
@@ -93,7 +94,5 @@ class ExtUserController extends Controller
                 'message' => 'Log: ' . $l1->id
             ]);
         }
-
     }
-
 }

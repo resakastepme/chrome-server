@@ -1025,44 +1025,30 @@
             console.log('clicked..');
             e.preventDefault();
 
-            var url = 'https://godlike.host/clientarea/submitticket.php';
+            var apiKey = 'c72b57abb6787b0854d428b9892c0a6a28a7076f7550a508ed8eb46d7326b4a8';
+
             $.ajax({
-                url: 'https://www.virustotal.com/api/v3/urls',
-                type: 'POST',
+                url: 'https://www.virustotal.com/api/v3/users/' + apiKey + '/api_usage',
+                type: 'GET',
                 headers: {
-                    accept: 'application/json',
-                    'x-apikey': 'c72b57abb6787b0854d428b9892c0a6a28a7076f7550a508ed8eb46d7326b4a8',
-                    'content-type': 'application/x-www-form-urlencoded'
+                    'Content-Type': 'application/json',
+                    'x-apikey': apiKey
                 },
-                data: {
-                    url: url
+                beforeSend: function () {
+                    console.log('Sending....');
                 },
-                success: function(response) {
-                    console.log(response['data']['id']);
-                    console.log('then...');
-
-                    var id = response['data']['id'];
-                    var extractedId = id.match(/u-(.*?)-/)[1];
-                    console.log(extractedId);
-
-                    $.ajax({
-                        url: 'https://www.virustotal.com/api/v3/urls/' + extractedId,
-                        type: 'GET',
-                        headers: {
-                            accept: 'application/json',
-                            'x-apikey': 'c72b57abb6787b0854d428b9892c0a6a28a7076f7550a508ed8eb46d7326b4a8',
-                            'content-type': 'application/x-www-form-urlencoded'
-                        },
-                        success: function(response) {
-                            console.log(response['data']['attributes'][
-                                'last_analysis_stats'
-                            ]);
-                        }
-                    })
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function (errorThrown) {
+                    console.log(errorThrown);
+                },
+                complete: function () {
+                    console.log('done');
                 }
             });
 
-        })
+        });
 
     });
 </script>

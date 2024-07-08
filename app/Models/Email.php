@@ -12,6 +12,7 @@ class Email extends Model
     protected $fillable = [
         'id_user',
         'id_analisa',
-        'title'
+        'title',
+        'sender'
     ];
 }
