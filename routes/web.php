@@ -16,10 +16,10 @@ use Illuminate\Support\Facades\Artisan;
 
 Route::get('/', function () {
     // return view('welcome');
-    return redirect()->to('/index');
+    return redirect()->to('/shielded/privacyandpolicy');
 });
-Route::get('/index', function () {
-    return view('index');
+Route::get('/shielded/privacyandpolicy', function () {
+    return view('privacy');
 });
 
 Route::get('/get-iconpage', function () {
