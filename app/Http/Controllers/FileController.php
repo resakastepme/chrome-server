@@ -68,6 +68,7 @@ class FileController extends Controller
         $base64 = $r['base64'];
         $index = $r['index'];
         $name = $r['name'];
+        $ext = $r['ext'];
 
         if (!$id_user || !$id_analisa || !$base64 || !$index || !$name) {
             return response()->json([
@@ -114,6 +115,24 @@ class FileController extends Controller
 
         // $veryLast = $this->getAnalyzeFile($selfLink);
 
+        if ($ext == 1) {
+            $client = new \GuzzleHttp\Client();
+            $response = $client->request('POST', 'https://chrome.server.resaka.my.id/api/v1/store-file-data', [
+                'multipart' => [
+                    [
+                        'id_email' => $id_analisa,
+                        'name' => $name,
+                        'self_url' => $selfLink,
+                        'id_user' => $id_user
+                    ]
+                ],
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'Authorization' => 'Bearer 1|zaQoCF4MGINb2JKOGwrKa2Tk3KtJEEHINUZLX7yM160d4f8f',
+                ],
+            ]);
+        }
+
         if ($save) {
 
             $data = [
@@ -141,6 +160,34 @@ class FileController extends Controller
                 'status' => 'error',
                 'index' => $index
             ]);
+        }
+    }
+
+    public function storeFileData(Request $r)
+    {
+        $id_email = $r['id_email'];
+        $name = $r['name'];
+        $self_url = $r['self_url'];
+        $id_user = $r['id_user'];
+
+        $data = [
+            'id_email' => $id_email,
+            'name' => $name,
+            'self_url' => $self_url
+        ];
+        $logfile = LogFile::create($data);
+        if($logfile){
+            ExtLog::create([
+                'user_hash' => $id_user,
+                'message' => 'Storing file data to external'
+            ]);
+            return response()->json(['store file data success']);
+        }else{
+            ExtLog::create([
+                'user_hash' => $id_user,
+                'message' => 'Failed Storing file data to external'
+            ]);
+            return response()->json(['store file data failed']);
         }
     }
 

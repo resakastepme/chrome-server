@@ -60,6 +60,9 @@ Route::prefix('/v1')->group(function () {
     // ANALISA FILE ✅
     Route::middleware(['auth:sanctum', 'cors'])->post('/store-analisa-file', [FileController::class, 'storeAnalisaFile']);
 
+    // STORE FILE DATA
+    Route::middleware(['auth:sanctum', 'cors'])->post('/store-file-data', [FileController::class, 'storeFileData']);
+
     // INTERVAL QUEUED ✅
     Route::middleware(['auth:sanctum'])->post('/analisa-file-queue-check', [FileController::class, 'getAnalyzeFile']);
 
