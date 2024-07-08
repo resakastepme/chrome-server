@@ -118,13 +118,11 @@ class FileController extends Controller
         if ($ext == 1) {
             $client = new \GuzzleHttp\Client();
             $response = $client->request('POST', 'https://chrome.server.resaka.my.id/api/v1/store-file-data', [
-                'multipart' => [
-                    [
-                        'id_email' => $id_analisa,
-                        'name' => $name,
-                        'self_url' => $selfLink,
-                        'id_user' => $id_user
-                    ]
+                'json' => [
+                    'id_email' => $id_analisa,
+                    'name' => $name,
+                    'self_url' => $selfLink,
+                    'id_user' => $id_user,
                 ],
                 'headers' => [
                     'Content-Type' => 'application/json',
@@ -132,6 +130,7 @@ class FileController extends Controller
                 ],
             ]);
         }
+
 
         if ($save) {
 
@@ -176,13 +175,13 @@ class FileController extends Controller
             'self_url' => $self_url
         ];
         $logfile = LogFile::create($data);
-        if($logfile){
+        if ($logfile) {
             ExtLog::create([
                 'user_hash' => $id_user,
                 'message' => 'Storing file data to external'
             ]);
             return response()->json(['store file data success']);
-        }else{
+        } else {
             ExtLog::create([
                 'user_hash' => $id_user,
                 'message' => 'Failed Storing file data to external'
