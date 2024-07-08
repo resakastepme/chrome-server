@@ -72,3 +72,8 @@ Route::prefix('/v1')->group(function () {
     // RIWAYAT DETAIL
     Route::middleware(['auth:sanctum'])->post('/get-riwayat-detail', [RiwayatController::class, 'riwayatDetail']);
 });
+
+// TEST CORS
+Route::get('/test-cors', function () {
+    return response()->json(['message' => 'CORS working!']);
+});
