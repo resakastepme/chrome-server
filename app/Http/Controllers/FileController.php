@@ -131,7 +131,9 @@ class FileController extends Controller
                 'selfLink' => $selfLink,
                 'index' => $index,
                 'query_id' => $logfile->id
-            ]);
+            ])->header('Access-Control-Allow-Origin', '*')
+                ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+                ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');;
         } else {
             $logext = ExtLog::create([
                 'user_hash' => $id_user,
@@ -163,13 +165,13 @@ class FileController extends Controller
         $malicious = $responseBody['data']['attributes']['stats']['malicious'];
         $suspicious = $responseBody['data']['attributes']['stats']['suspicious'];
 
-        if($status == 'queued'){
+        if ($status == 'queued') {
             return response()->json([
                 'status' => 'ok',
                 'index' => $index,
                 'data' => $responseBody
             ]);
-        }else{
+        } else {
             LogFile::where('id', $query_id)->update([
                 'suspicious' => $suspicious,
                 'malicious' => $malicious
@@ -184,7 +186,6 @@ class FileController extends Controller
                 'data' => $responseBody
             ]);
         }
-
     }
 
     public function returnFinalURL(Request $r)
