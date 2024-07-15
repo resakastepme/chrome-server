@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('datasets', function (Blueprint $table) {
             $table->id();
+            $table->text('id_user');
             $table->text('original');
             $table->text('translated')->nullable();
             $table->text('assistant')->nullable();

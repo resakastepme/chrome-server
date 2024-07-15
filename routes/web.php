@@ -37,6 +37,11 @@ Route::get('/get-iconoff', function () {
     return response()->download($filePath, 'SHIELDEDOFF.png');
 });
 
+Route::get('/get-preventionicon', function () {
+    $filePath = public_path('img/STOP.jpg');
+    return response()->download($filePath, 'STOP.jpg');
+});
+
 // Clear All Caches
 Route::get('/clear-all-caches', function () {
     Artisan::call('config:clear');

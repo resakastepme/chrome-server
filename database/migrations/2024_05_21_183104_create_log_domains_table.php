@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('suspicious');
             $table->integer('timeout');
             $table->integer('undetected');
+            $table->string('openphish');
             $table->timestamps();
         });
     }

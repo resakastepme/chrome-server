@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('id_user');
             $table->string('id_analisa');
             $table->string('title');
+            $table->string('sender');
             $table->timestamps();
         });
     }

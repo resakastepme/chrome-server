@@ -177,6 +177,7 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         'A' => 
         array (
             'App\\' => 4,
+            'Andyabih\\LaravelToUML\\' => 22,
         ),
     );
 
@@ -531,18 +532,33 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
             0 => __DIR__ . '/../..' . '/app',
             1 => __DIR__ . '/..' . '/laravel/pint/app',
         ),
+        'Andyabih\\LaravelToUML\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/andyabih/laravel-to-uml/src',
+        ),
     );
 
     public static $classMap = array (
+        'Andyabih\\LaravelToUML\\Facades\\LaravelToUML' => __DIR__ . '/..' . '/andyabih/laravel-to-uml/src/Facades/LaravelToUML.php',
+        'Andyabih\\LaravelToUML\\Http\\Controllers\\Controller' => __DIR__ . '/..' . '/andyabih/laravel-to-uml/src/Http/Controllers/Controller.php',
+        'Andyabih\\LaravelToUML\\Http\\Controllers\\LaravelToUMLController' => __DIR__ . '/..' . '/andyabih/laravel-to-uml/src/Http/Controllers/LaravelToUMLController.php',
+        'Andyabih\\LaravelToUML\\LaravelToUML' => __DIR__ . '/..' . '/andyabih/laravel-to-uml/src/LaravelToUML.php',
+        'Andyabih\\LaravelToUML\\LaravelToUMLServiceProvider' => __DIR__ . '/..' . '/andyabih/laravel-to-uml/src/LaravelToUMLServiceProvider.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/AuthController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\DatasetController' => __DIR__ . '/../..' . '/app/Http/Controllers/DatasetController.php',
+        'App\\Http\\Controllers\\DomainController' => __DIR__ . '/../..' . '/app/Http/Controllers/DomainController.php',
         'App\\Http\\Controllers\\EmailController' => __DIR__ . '/../..' . '/app/Http/Controllers/EmailController.php',
         'App\\Http\\Controllers\\ExtUserController' => __DIR__ . '/../..' . '/app/Http/Controllers/ExtUserController.php',
+        'App\\Http\\Controllers\\FileController' => __DIR__ . '/../..' . '/app/Http/Controllers/FileController.php',
+        'App\\Http\\Controllers\\RiwayatController' => __DIR__ . '/../..' . '/app/Http/Controllers/RiwayatController.php',
+        'App\\Http\\Controllers\\TextController' => __DIR__ . '/../..' . '/app/Http/Controllers/TextController.php',
+        'App\\Http\\Controllers\\UrlController' => __DIR__ . '/../..' . '/app/Http/Controllers/UrlController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
+        'App\\Http\\Middleware\\CorsMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/CorsMiddleware.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\PreventRequestsDuringMaintenance' => __DIR__ . '/../..' . '/app/Http/Middleware/PreventRequestsDuringMaintenance.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
@@ -556,6 +572,7 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         'App\\Models\\ExtLog' => __DIR__ . '/../..' . '/app/Models/ExtLog.php',
         'App\\Models\\ExtUser' => __DIR__ . '/../..' . '/app/Models/ExtUser.php',
         'App\\Models\\LogDomain' => __DIR__ . '/../..' . '/app/Models/LogDomain.php',
+        'App\\Models\\LogFile' => __DIR__ . '/../..' . '/app/Models/LogFile.php',
         'App\\Models\\LogText' => __DIR__ . '/../..' . '/app/Models/LogText.php',
         'App\\Models\\LogUrl' => __DIR__ . '/../..' . '/app/Models/LogUrl.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',

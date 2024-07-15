@@ -218,7 +218,8 @@ class FileController extends Controller
         } else {
             LogFile::where('id', $query_id)->update([
                 'suspicious' => $suspicious,
-                'malicious' => $malicious
+                'malicious' => $malicious,
+                'malwarebytes' => $responseBody['data']['attributes']['results']['Malwarebytes']['category']
             ]);
             ExtLog::create([
                 'user_hash' => $id_user,
