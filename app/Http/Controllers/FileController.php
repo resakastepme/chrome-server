@@ -87,6 +87,7 @@ class FileController extends Controller
         $save = Storage::disk('public')->put($id_user . '/' . $fixName, $decodedData);
 
         $lastThing = $this->zipIt($fixName, $id_user);
+
         if ($lastThing) {
             return response()->json(['SERVER OK']);
         } else {
