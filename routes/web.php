@@ -18,6 +18,16 @@ Route::get('/', function () {
     // return view('welcome');
     return redirect()->to('/shielded/privacyandpolicy');
 });
+
+Route::get('/run-storage-link', function () {
+    $calling = Artisan::call('storage:link');
+    if($calling){
+        return 'STORAGE LINK SUCCESS';
+    }else{
+        return 'STORAGE LINK FAILED';
+    }
+});
+
 Route::get('/shielded/privacyandpolicy', function () {
     return view('privacy');
 });
