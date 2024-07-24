@@ -58,10 +58,10 @@ Route::prefix('/v1')->group(function () {
     Route::middleware(['auth:sanctum'])->post('/store-analisa-url', [UrlController::class, 'storeAnalisaURL']);
 
     // ANALISA FILE ✅
-    Route::middleware(['auth:sanctum', 'cors'])->post('/store-analisa-file', [FileController::class, 'storeAnalisaFile']);
+    Route::middleware(['auth:sanctum'])->post('/store-analisa-file', [FileController::class, 'storeAnalisaFile']);
 
     // STORE FILE DATA
-    Route::middleware(['auth:sanctum', 'cors'])->post('/store-file-data', [FileController::class, 'storeFileData']);
+    Route::middleware(['auth:sanctum'])->post('/store-file-data', [FileController::class, 'storeFileData']);
 
     // INTERVAL QUEUED ✅
     Route::middleware(['auth:sanctum'])->post('/analisa-file-queue-check', [FileController::class, 'getAnalyzeFile']);
