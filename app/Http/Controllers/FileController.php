@@ -86,13 +86,13 @@ class FileController extends Controller
         $fixName = time() . Str::random(5) . '.' . $this->mimeToExtension($mime);
         $save = Storage::disk('public')->put($id_user . '/' . $fixName, $decodedData);
 
-        $lastThing = $this->zipIt($fixName, $id_user);
-
-        $filePath = public_path('storage/zip-' . $id_user . '/' . $fixName . '.zip');
-        $fileContents = file_get_contents($filePath);
-        $base64Zip = base64_encode($fileContents);
-
         return response()->json(['SERVER OK']);
+
+        // $lastThing = $this->zipIt($fixName, $id_user);
+
+        // $filePath = public_path('storage/zip-' . $id_user . '/' . $fixName . '.zip');
+        // $fileContents = file_get_contents($filePath);
+        // $base64Zip = base64_encode($fileContents);
 
         // $client = new \GuzzleHttp\Client();
         // $response = $client->request('POST', 'https://www.virustotal.com/api/v3/files', [
