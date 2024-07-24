@@ -92,26 +92,27 @@ class FileController extends Controller
         $fileContents = file_get_contents($filePath);
         $base64Zip = base64_encode($fileContents);
 
-        $client = new \GuzzleHttp\Client();
-        $response = $client->request('POST', 'https://www.virustotal.com/api/v3/files', [
-            'multipart' => [
-                [
-                    'name' => 'file',
-                    'filename' => $fixName . '.zip',
-                    'contents' => 'data:application/x-zip-compressed;name=' . $fixName . '.zip;base64,' . $base64Zip,
-                    'headers' => [
-                        'Content-Type' => 'application/x-zip-compressed'
-                    ]
-                ]
-            ],
-            'headers' => [
-                'accept' => 'application/json',
-                'x-apikey' => 'c72b57abb6787b0854d428b9892c0a6a28a7076f7550a508ed8eb46d7326b4a8',
-            ],
-        ]);
+        return response()->json(['SERVER OK']);
 
-        $responseBody = json_decode($response->getBody()->getContents(), true);
-        return response()->json([$responseBody]);
+        // $client = new \GuzzleHttp\Client();
+        // $response = $client->request('POST', 'https://www.virustotal.com/api/v3/files', [
+        //     'multipart' => [
+        //         [
+        //             'name' => 'file',
+        //             'filename' => $fixName . '.zip',
+        //             'contents' => 'data:application/x-zip-compressed;name=' . $fixName . '.zip;base64,' . $base64Zip,
+        //             'headers' => [
+        //                 'Content-Type' => 'application/x-zip-compressed'
+        //             ]
+        //         ]
+        //     ],
+        //     'headers' => [
+        //         'accept' => 'application/json',
+        //         'x-apikey' => 'c72b57abb6787b0854d428b9892c0a6a28a7076f7550a508ed8eb46d7326b4a8',
+        //     ],
+        // ]);
+
+        // $responseBody = json_decode($response->getBody()->getContents(), true);
         // $selfLink = $responseBody['data']['links']['self'];
 
         // // $veryLast = $this->getAnalyzeFile($selfLink);
