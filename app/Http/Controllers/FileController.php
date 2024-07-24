@@ -149,9 +149,7 @@ class FileController extends Controller
                 'selfLink' => $selfLink,
                 'index' => $index,
                 'query_id' => $logfile->id
-            ])->header('Access-Control-Allow-Origin', '*')
-            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-            ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+            ]);
         } else {
             $logext = ExtLog::create([
                 'user_hash' => $id_user,
@@ -160,9 +158,7 @@ class FileController extends Controller
             return response()->json([
                 'status' => 'error',
                 'index' => $index
-            ])->header('Access-Control-Allow-Origin', '*')
-            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-            ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+            ]);
         }
     }
 

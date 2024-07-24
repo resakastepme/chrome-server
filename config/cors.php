@@ -17,11 +17,9 @@ return [
 
     'paths' => ['*'],
 
-    'Access-Control-Allow-Origin' => ['*'],
-
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://mail.google.com'],
+    'allowed_origins' => ['*'],
 
     'allowed_origins_patterns' => [],
 
