@@ -77,42 +77,41 @@ class FileController extends Controller
             ]);
         }
 
-        return response()->json(['sukses bro']);
+        $mime = finfo_buffer(finfo_open(), base64_decode($base64), FILEINFO_MIME_TYPE);
+        $decodedData = base64_decode($base64);
+        $folderPath = 'public/' . $id_user;
+        if (!Storage::exists($folderPath)) {
+            Storage::makeDirectory($folderPath, 0777, true);
+        }
+        $fixName = time() . Str::random(5) . '.' . $this->mimeToExtension($mime);
+        $save = Storage::disk('public')->put($id_user . '/' . $fixName, $decodedData);
 
-        // $mime = finfo_buffer(finfo_open(), base64_decode($base64), FILEINFO_MIME_TYPE);
-        // $decodedData = base64_decode($base64);
-        // $folderPath = 'public/' . $id_user;
-        // if (!Storage::exists($folderPath)) {
-        //     Storage::makeDirectory($folderPath, 0777, true);
-        // }
-        // $fixName = time() . Str::random(5) . '.' . $this->mimeToExtension($mime);
-        // $save = Storage::disk('public')->put($id_user . '/' . $fixName, $decodedData);
+        $lastThing = $this->zipIt($fixName, $id_user);
 
-        // $lastThing = $this->zipIt($fixName, $id_user);
+        $filePath = public_path('storage/zip-' . $id_user . '/' . $fixName . '.zip');
+        $fileContents = file_get_contents($filePath);
+        $base64Zip = base64_encode($fileContents);
 
-        // $filePath = public_path('storage/zip-' . $id_user . '/' . $fixName . '.zip');
-        // $fileContents = file_get_contents($filePath);
-        // $base64Zip = base64_encode($fileContents);
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('POST', 'https://www.virustotal.com/api/v3/files', [
+            'multipart' => [
+                [
+                    'name' => 'file',
+                    'filename' => $fixName . '.zip',
+                    'contents' => 'data:application/x-zip-compressed;name=' . $fixName . '.zip;base64,' . $base64Zip,
+                    'headers' => [
+                        'Content-Type' => 'application/x-zip-compressed'
+                    ]
+                ]
+            ],
+            'headers' => [
+                'accept' => 'application/json',
+                'x-apikey' => 'c72b57abb6787b0854d428b9892c0a6a28a7076f7550a508ed8eb46d7326b4a8',
+            ],
+        ]);
 
-        // $client = new \GuzzleHttp\Client();
-        // $response = $client->request('POST', 'https://www.virustotal.com/api/v3/files', [
-        //     'multipart' => [
-        //         [
-        //             'name' => 'file',
-        //             'filename' => $fixName . '.zip',
-        //             'contents' => 'data:application/x-zip-compressed;name=' . $fixName . '.zip;base64,' . $base64Zip,
-        //             'headers' => [
-        //                 'Content-Type' => 'application/x-zip-compressed'
-        //             ]
-        //         ]
-        //     ],
-        //     'headers' => [
-        //         'accept' => 'application/json',
-        //         'x-apikey' => 'c72b57abb6787b0854d428b9892c0a6a28a7076f7550a508ed8eb46d7326b4a8',
-        //     ],
-        // ]);
-
-        // $responseBody = json_decode($response->getBody()->getContents(), true);
+        $responseBody = json_decode($response->getBody()->getContents(), true);
+        return response()->json([$responseBody]);
         // $selfLink = $responseBody['data']['links']['self'];
 
         // // $veryLast = $this->getAnalyzeFile($selfLink);
