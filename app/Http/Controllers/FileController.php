@@ -87,81 +87,80 @@ class FileController extends Controller
         $save = Storage::disk('public')->put($id_user . '/' . $fixName, $decodedData);
 
         $lastThing = $this->zipIt($fixName, $id_user);
-        return response()->json(['SERVER OK']);
 
-        // $filePath = public_path('storage/zip-' . $id_user . '/' . $fixName . '.zip');
-        // $fileContents = file_get_contents($filePath);
-        // $base64Zip = base64_encode($fileContents);
-
-
-        // $client = new \GuzzleHttp\Client();
-        // $response = $client->request('POST', 'https://www.virustotal.com/api/v3/files', [
-        //     'multipart' => [
-        //         [
-        //             'name' => 'file',
-        //             'filename' => $fixName . '.zip',
-        //             'contents' => 'data:application/x-zip-compressed;name=' . $fixName . '.zip;base64,' . $base64Zip,
-        //             'headers' => [
-        //                 'Content-Type' => 'application/x-zip-compressed'
-        //             ]
-        //         ]
-        //     ],
-        //     'headers' => [
-        //         'accept' => 'application/json',
-        //         'x-apikey' => 'c72b57abb6787b0854d428b9892c0a6a28a7076f7550a508ed8eb46d7326b4a8',
-        //     ],
-        // ]);
-
-        // $responseBody = json_decode($response->getBody()->getContents(), true);
-        // $selfLink = $responseBody['data']['links']['self'];
-
-        // // $veryLast = $this->getAnalyzeFile($selfLink);
-
-        // if ($ext == 1) {
-        //     $client = new \GuzzleHttp\Client();
-        //     $response = $client->request('POST', 'https://chrome.server.resaka.my.id/api/v1/store-file-data', [
-        //         'json' => [
-        //             'id_email' => $id_analisa,
-        //             'name' => $name,
-        //             'self_url' => $selfLink,
-        //             'id_user' => $id_user,
-        //         ],
-        //         'headers' => [
-        //             'Content-Type' => 'application/json',
-        //             'Authorization' => 'Bearer 1|zaQoCF4MGINb2JKOGwrKa2Tk3KtJEEHINUZLX7yM160d4f8f',
-        //         ],
-        //     ]);
-        // }
+        $filePath = public_path('storage/zip-' . $id_user . '/' . $fixName . '.zip');
+        $fileContents = file_get_contents($filePath);
+        $base64Zip = base64_encode($fileContents);
 
 
-        // if ($save) {
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('POST', 'https://www.virustotal.com/api/v3/files', [
+            'multipart' => [
+                [
+                    'name' => 'file',
+                    'filename' => $fixName . '.zip',
+                    'contents' => 'data:application/x-zip-compressed;name=' . $fixName . '.zip;base64,' . $base64Zip,
+                    'headers' => [
+                        'Content-Type' => 'application/x-zip-compressed'
+                    ]
+                ]
+            ],
+            'headers' => [
+                'accept' => 'application/json',
+                'x-apikey' => 'c72b57abb6787b0854d428b9892c0a6a28a7076f7550a508ed8eb46d7326b4a8',
+            ],
+        ]);
 
-        //     $data = [
-        //         'id_email' => $id_analisa,
-        //         'name' => $name,
-        //         'self_url' => $selfLink
-        //     ];
-        //     $logfile = LogFile::create($data);
-        //     ExtLog::create([
-        //         'user_hash' => $id_user,
-        //         'message' => 'Initiate analyze file'
-        //     ]);
-        //     return response()->json([
-        //         'status' => 'ok',
-        //         'selfLink' => $selfLink,
-        //         'index' => $index,
-        //         'query_id' => $logfile->id
-        //     ]);
-        // } else {
-        //     $logext = ExtLog::create([
-        //         'user_hash' => $id_user,
-        //         'message' => 'Fail Initiate analyze file'
-        //     ]);
-        //     return response()->json([
-        //         'status' => 'error',
-        //         'index' => $index
-        //     ]);
-        // }
+        $responseBody = json_decode($response->getBody()->getContents(), true);
+        $selfLink = $responseBody['data']['links']['self'];
+
+        // $veryLast = $this->getAnalyzeFile($selfLink);
+
+        if ($ext == 1) {
+            $client = new \GuzzleHttp\Client();
+            $response = $client->request('POST', 'https://chrome.server.resaka.my.id/api/v1/store-file-data', [
+                'json' => [
+                    'id_email' => $id_analisa,
+                    'name' => $name,
+                    'self_url' => $selfLink,
+                    'id_user' => $id_user,
+                ],
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'Authorization' => 'Bearer 1|zaQoCF4MGINb2JKOGwrKa2Tk3KtJEEHINUZLX7yM160d4f8f',
+                ],
+            ]);
+        }
+
+
+        if ($save) {
+
+            $data = [
+                'id_email' => $id_analisa,
+                'name' => $name,
+                'self_url' => $selfLink
+            ];
+            $logfile = LogFile::create($data);
+            ExtLog::create([
+                'user_hash' => $id_user,
+                'message' => 'Initiate analyze file'
+            ]);
+            return response()->json([
+                'status' => 'ok',
+                'selfLink' => $selfLink,
+                'index' => $index,
+                'query_id' => $logfile->id
+            ]);
+        } else {
+            $logext = ExtLog::create([
+                'user_hash' => $id_user,
+                'message' => 'Fail Initiate analyze file'
+            ]);
+            return response()->json([
+                'status' => 'error',
+                'index' => $index
+            ]);
+        }
     }
 
     public function storeFileData(Request $r)
