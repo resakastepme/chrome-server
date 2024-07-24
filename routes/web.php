@@ -20,12 +20,13 @@ Route::get('/', function () {
 });
 
 Route::get('/run-storage-link', function () {
-    $calling = Artisan::call('storage:link');
-    if($calling){
-        return 'STORAGE LINK SUCCESS';
-    }else{
-        return 'STORAGE LINK FAILED';
+    try {
+        Artisan::call('storage:link');
+        return 'SUCCESS';
+    } catch (\Throwable $th) {
+        return 'FAILED: ' . $th->getMessage();
     }
+
 });
 
 Route::get('/shielded/privacyandpolicy', function () {
