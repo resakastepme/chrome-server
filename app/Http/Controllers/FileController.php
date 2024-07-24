@@ -86,13 +86,9 @@ class FileController extends Controller
         $fixName = time() . Str::random(5) . '.' . $this->mimeToExtension($mime);
         $save = Storage::disk('public')->put($id_user . '/' . $fixName, $decodedData);
 
-        $lastThing = $this->zipIt($fixName, $id_user);
+        return response()->json(['SERVER OK']);
+        // $lastThing = $this->zipIt($fixName, $id_user);
 
-        if ($lastThing) {
-            return response()->json(['SERVER OK']);
-        } else {
-            return response()->json(['SERVER NOT OK']);
-        }
         // $filePath = public_path('storage/zip-' . $id_user . '/' . $fixName . '.zip');
         // $fileContents = file_get_contents($filePath);
         // $base64Zip = base64_encode($fileContents);
