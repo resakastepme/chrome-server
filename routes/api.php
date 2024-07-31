@@ -1,18 +1,14 @@
 <?php
 
-use App\Models\ExtUser;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UrlController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FileController;
-use App\Http\Controllers\LookController;
 use App\Http\Controllers\TextController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\DomainController;
 use App\Http\Controllers\DatasetController;
 use App\Http\Controllers\ExtUserController;
-use App\Http\Controllers\LogTextController;
 use App\Http\Controllers\RiwayatController;
 
 /*
@@ -34,46 +30,46 @@ Route::prefix('/v1')->group(function () {
     Route::post('/signup', [AuthController::class, 'signup']);
     Route::post('/login', [AuthController::class, 'login']);
 
-    Route::middleware(['auth:sanctum'])->get('/test', [AuthController::class, 'test']);
+    Route::get('/test', [AuthController::class, 'test']);
 
-    Route::middleware(['auth:sanctum'])->post('/insert-dataset', [DatasetController::class, 'store']);
+    Route::post('/insert-dataset', [DatasetController::class, 'store']);
 
     // EXTENSION USER ROUTE
-    Route::middleware(['auth:sanctum'])->post('/ext-user', [ExtUserController::class, 'validating']);
-    Route::middleware(['auth:sanctum'])->post('/change-user', [ExtUserController::class, 'change']);
+    Route::post('/ext-user', [ExtUserController::class, 'validating']);
+    Route::post('/change-user', [ExtUserController::class, 'change']);
 
     //STORE DATA EMAIL
-    Route::middleware(['auth:sanctum'])->post('/store-data-email', [EmailController::class, 'storeIDAnalisa']);
+    Route::post('/store-data-email', [EmailController::class, 'storeIDAnalisa']);
 
     //ANALISA TEXT ✅
-    Route::middleware(['auth:sanctum'])->post('/store-analisa-text', [TextController::class, 'storeAnalisaText']);
+    Route::post('/store-analisa-text', [TextController::class, 'storeAnalisaText']);
 
     //TRANSLATE
-    Route::middleware(['auth:sanctum'])->post('/translate', [TextController::class, 'translate']);
+    Route::post('/translate', [TextController::class, 'translate']);
 
     //ANALISA DOMAIN ✅
-    Route::middleware(['auth:sanctum'])->post('/store-analisa-domain', [DomainController::class, 'storeAnalisaDomain']);
+    Route::post('/store-analisa-domain', [DomainController::class, 'storeAnalisaDomain']);
 
     // ANALISA URL ✅
-    Route::middleware(['auth:sanctum'])->post('/store-analisa-url', [UrlController::class, 'storeAnalisaURL']);
+    Route::post('/store-analisa-url', [UrlController::class, 'storeAnalisaURL']);
 
     // ANALISA FILE ✅
-    Route::middleware(['auth:sanctum'])->post('/store-analisa-file', [FileController::class, 'storeAnalisaFile']);
+    Route::post('/store-analisa-file', [FileController::class, 'storeAnalisaFile']);
 
     // STORE FILE DATA
-    Route::middleware(['auth:sanctum'])->post('/store-file-data', [FileController::class, 'storeFileData']);
+    Route::post('/store-file-data', [FileController::class, 'storeFileData']);
 
     // INTERVAL QUEUED ✅
-    Route::middleware(['auth:sanctum'])->post('/analisa-file-queue-check', [FileController::class, 'getAnalyzeFile']);
+    Route::post('/analisa-file-queue-check', [FileController::class, 'getAnalyzeFile']);
 
     // GET FINAL URL ✅
-    Route::middleware(['auth:sanctum'])->post('/get-final-url', [FileController::class, 'returnFinalURL']);
+    Route::post('/get-final-url', [FileController::class, 'returnFinalURL']);
 
     // RIWAYAT
-    Route::middleware(['auth:sanctum'])->get('/get-riwayat', [RiwayatController::class, 'index']);
+    Route::get('/get-riwayat', [EmailController::class, 'getRiwayat']);
 
     // RIWAYAT DETAIL
-    Route::middleware(['auth:sanctum'])->post('/get-riwayat-detail', [RiwayatController::class, 'riwayatDetail']);
+    Route::post('/get-riwayat-detail', [EmailController::class, 'riwayatDetail']);
 });
 
 // TEST CORS

@@ -523,4 +523,55 @@ class EmailController extends Controller
 
         return response()->json([$finalUrl]);
     }
+
+    // TO GET RIWAYAT
+    public function getRiwayat(Request $r)
+    {
+        $id_user = $r['id_user'];
+        $q = Email::where('id_user', $id_user)->orderBy('id', 'desc')->get();
+        if ($q) {
+            return response()->json([
+                'status' => 'ok',
+                'datas' => $q
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'not ok'
+            ]);
+        }
+    }
+
+    // TO GET RIWAYAT DETAIL
+    public function riwayatDetail(Request $r)
+    {
+        $idAnalisa = $r['idAnalisa'];
+        $idUser = $r['idUser'];
+
+        try {
+            $qEmail = Email::where('id_user', $idUser)->where('id_analisa', $idAnalisa)->first();
+            $qText = LogText::where('id_email', $idAnalisa)->first();
+            $qDomain = LogDomain::where('id_email', $idAnalisa)->get();
+            $qUrl = LogUrl::where('id_email', $idAnalisa)->get();
+            $qFile = LogFile::where('id_email', $idAnalisa)->get();
+
+            $judul = $qEmail['title'];
+            $pengirim = $qEmail['sender'];
+            $tanggal = $qEmail['created_at'];
+
+            return response()->json([
+                'status' => 'ok',
+                'judul' => $judul,
+                'pengirim' => $pengirim,
+                'tanggal' => $tanggal,
+                'ringkasan' => $qText,
+                'domain' => $qDomain,
+                'url' => $qUrl,
+                'file' => $qFile
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => $th->getMessage()
+            ]);
+        }
+    }
 }
