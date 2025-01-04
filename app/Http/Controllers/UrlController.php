@@ -101,7 +101,7 @@ class UrlController extends Controller
                     ]);
                 } else {
                     $dataJson = json_decode($response, true);
-                    $dataAnalyze = $dataJson['data']['attributes']['last_analysis_stats'];
+                    $dataAnalyze = $dataJson['data']['attributes']['last_analysis_results']['Emsisoft']['result'];
 
                     $data = [
                         'id_email' => $id_analisa,

@@ -10,7 +10,8 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
-        "stichoza/google-translate-php": "^5.1"
+        "stichoza/google-translate-php": "^5.1",
+        "monaz/vt-php-api3": "dev-master"
     },
     "require-dev": {
         "andyabih/laravel-to-uml": "^1.0",
